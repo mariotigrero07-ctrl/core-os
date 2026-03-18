@@ -2,18 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CORE_OS | Mario Tigrero</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CORE_OS | Atlas Style</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <div id="auth-container">
         <div class="auth-box">
-            <h2 class="glow-title">CORE_OS</h2>
-            <p style="color:gray; font-size:0.8rem; margin-bottom:20px;">Acceso al Núcleo AMD A9</p>
-            <input type="text" id="userEmail" placeholder="Correo (mariotigrero07@gmail.com)">
-            <input type="password" id="userPass" placeholder="Código (1707D)">
+            <h2 style="color:#007cff; margin-bottom:10px;">CORE_OS</h2>
+            <p style="font-size:0.7rem; color:gray; margin-bottom:20px;">SYSTEM AUTHENTICATION</p>
+            <input type="text" id="userEmail" placeholder="Correo">
+            <input type="password" id="userPass" placeholder="Código">
             <button class="btn-main" onclick="login()">ENTRAR</button>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <nav class="navbar">
         <div class="user-profile" onclick="logout()">
             <div class="avatar">M</div>
-            <span style="font-size:0.7rem; color: #a0a0a0;">Cerrar Sesión</span>
+            <span>Salir</span>
         </div>
         <div class="nav-links">
             <button onclick="showSection('chat')">IA</button>
@@ -32,25 +32,23 @@
 
     <main class="main-content">
         <section id="chat-sec" class="app-section active">
-            <div id="chat-window" class="glass-panel">
-                <div class="msg bot"><b>[SYSTEM]:</b> Bienvenido, Mario. ¿Qué proceso ejecutamos hoy?</div>
-            </div>
+            <div id="chat-window" class="chat-container">
+                </div>
             <div class="input-area">
-                <input type="text" id="userInput" placeholder="Escribir comando..." onkeypress="if(event.key==='Enter') sendMessage()">
-                <button class="btn-send" onclick="sendMessage()">></button>
+                <input type="text" id="userInput" placeholder="Escribir..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()">></button>
             </div>
         </section>
 
         <section id="visual-sec" class="app-section">
-            <div id="galeria-grid" class="photo-grid">
-                </div>
+            <div id="galeria-grid" class="photo-grid"></div>
         </section>
 
         <section id="comms-sec" class="app-section">
-            <div class="comment-box">
-                <h3 style="margin-bottom:10px;">Enviar Reporte</h3>
+            <div class="card">
+                <h3>Reporte Directo</h3>
                 <form action="https://formspree.io/f/mariotigrero07@gmail.com" method="POST">
-                    <textarea name="mensaje" placeholder="Escribe tus comentarios aquí para que me lleguen al mail..."></textarea>
+                    <textarea name="message" placeholder="Tus comentarios aquí..."></textarea>
                     <button type="submit" class="btn-main">ENVIAR A BANDEJA</button>
                 </form>
             </div>

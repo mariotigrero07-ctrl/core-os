@@ -1,61 +1,54 @@
-// --- SISTEMA DE SESIÓN PERSISTENTE CORE_OS ---
+// --- SISTEMA CORE_OS ---
 
-// Esto se ejecuta apenas abres la página
-window.addEventListener('load', function() {
-    const sesionGuardada = localStorage.getItem("sesion_activa");
-    const loginContainer = document.getElementById("auth-container");
-    
-    if (sesionGuardada === "true" && loginContainer) {
-        // Si ya inició sesión antes, escondemos el cuadro de login de inmediato
-        loginContainer.style.display = "none";
-        console.log("[SISTEMA]: Usuario autenticado. Sesión recuperada.");
+window.addEventListener('load', () => {
+    if (localStorage.getItem("active_session") === "true") {
+        document.getElementById("auth-container").style.display = "none";
+        iniciarBienvenida();
     }
 });
 
-// Esta es tu función de entrar (asegúrate de que el nombre coincida con el de tu HTML)
 function login() {
-    const user = document.getElementById("userEmail").value;
-    const pass = document.getElementById("userPass").value;
+    const u = document.getElementById("userEmail").value;
+    const p = document.getElementById("userPass").value;
+    if (u === "mariotigrero07@gmail.com" && p === "1707D") {
+        localStorage.setItem("active_session", "true");
+        document.getElementById("auth-container").style.display = "none";
+        iniciarBienvenida();
+    } else { alert("Datos incorrectos"); }
+}
 
-    // Aquí pones tus datos de acceso
-    if (user === "mariotigrero07@gmail.com" && pass === "1707D") {
-        
-        // GUARDAMOS EL "TICKET" EN EL CELULAR
-        localStorage.setItem("sesion_activa", "true");
-        
-        // Escondemos el login con una transición suave
-        document.getElementById("auth-container").style.opacity = "0";
+function iniciarBienvenida() {
+    const win = document.getElementById('chat-window');
+    const textos = ["¡Hola, Mario!", "Bienvenido a tu sitio oficial.", "Núcleo AMD A9 activo y listo."];
+    
+    textos.forEach((txt, i) => {
         setTimeout(() => {
-            document.getElementById("auth-container").style.display = "none";
-        }, 300);
-
-        alert("Bienvenido de nuevo, Mario.");
-    } else {
-        alert("Error: Revisa tu correo o clave.");
-    }
+            win.innerHTML += `<div class="msg bot">${txt}</div>`;
+            win.scrollTop = win.scrollHeight;
+        }, i * 800); // Salen una por una
+    });
 }
 
-// Para cuando quieras cerrar la sesión de verdad
-function logout() {
-    localStorage.removeItem("sesion_activa");
-    location.reload(); // Esto hace que vuelva a pedir el login
+function showSection(id) {
+    document.querySelectorAll('.app-section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id + '-sec').classList.add('active');
 }
 
-function logout() {
-    location.reload(); // Reinicia la app al login
-}
-
-// Configuración de la IA (Resumen de tu hardware AMD A9)
 function sendMessage() {
     const input = document.getElementById('userInput');
-    const chatWin = document.getElementById('chat-window');
-    if (!input.value) return;
+    const win = document.getElementById('chat-window');
+    if (!input.value.trim()) return;
 
-    chatWin.innerHTML += `<div class="msg user">${input.value}</div>`;
-    
-    setTimeout(() => {
-        chatWin.innerHTML += `<div class="msg bot"><b>[CORE_OS]:</b> Procesando en AMD A9... Sistema estable.</div>`;
-        chatWin.scrollTop = chatWin.scrollHeight;
-    }, 500);
+    win.innerHTML += `<div class="msg user">${input.value}</div>`;
+    const q = input.value.toLowerCase();
     input.value = "";
+
+    setTimeout(() => {
+        let r = "Comando procesado. Sin errores en el sistema.";
+        if(q.includes("procesador")) r = "Hardware detectado: AMD A9-9420, 16GB RAM. Rendimiento estable.";
+        win.innerHTML += `<div class="msg bot"><b>[IA]:</b> ${r}</div>`;
+        win.scrollTop = win.scrollHeight;
+    }, 600);
 }
+
+function logout() { localStorage.removeItem("active_session"); location.reload(); }
