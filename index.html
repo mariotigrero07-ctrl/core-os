@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORE_OS | ALPHA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="auth-container">
+        <div id="login-view" class="auth-box">
+            <h1 class="glow-title">CORE_OS</h1>
+            <input type="email" id="logEmail" placeholder="Usuario/Email">
+            <input type="password" id="logPass" placeholder="Contraseña">
+            <button class="btn-main" onclick="handleLogin()">INICIAR SESIÓN</button>
+            <p class="toggle-link" onclick="toggleAuth('reg')">¿No tienes acceso? <span>Regístrate</span></p>
+        </div>
+
+        <div id="reg-view" class="auth-box" style="display:none">
+            <h1 class="glow-title">REGISTRO</h1>
+            <input type="text" id="regName" placeholder="Nombre completo">
+            <input type="email" id="regEmail" placeholder="Email">
+            <input type="password" id="regPass" placeholder="Contraseña">
+            <input type="text" id="regCode" placeholder="Código de Acceso (1707D)">
+            <button class="btn-main" onclick="handleRegister()">VALIDAR REGISTRO</button>
+            <p class="toggle-link" onclick="toggleAuth('log')">Ya tengo cuenta. <span>Volver</span></p>
+        </div>
+    </div>
+
+    <div id="main-app" style="display:none;">
+        <nav class="navbar">
+            <div class="logo">ALPHA_CORE <span id="sys-v" class="version-tag"></span></div>
+            <div class="nav-links">
+                <button onclick="showSection('chat')">IA_CORE</button>
+                <button onclick="showSection('galeria')">VISUAL</button>
+                <button onclick="showSection('redes')">ENLACES</button>
+                <button class="btn-exit" onclick="location.reload()">OFF</button>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <section id="chat-sec" class="app-section active">
+                <div id="chat-window" class="glass-panel"></div>
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="Escribir comando..." onkeypress="if(event.key==='Enter') sendMessage()">
+                    <button onclick="sendMessage()">ENVIAR</button>
+                </div>
+            </section>
+
+            <section id="galeria-sec" class="app-section">
+                <div id="galeria-grid" class="photo-grid"></div>
+            </section>
+
+            <section id="redes-sec" class="app-section">
+                <div id="extra-links" class="links-container"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ia.js"></script>
+    <script src="js/galeria.js"></script>
+</body>
+</html>
