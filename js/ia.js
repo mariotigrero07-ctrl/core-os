@@ -1,68 +1,61 @@
-// --- NÚCLEO DE INTELIGENCIA ALPHA_CORE ---
+// --- SISTEMA DE SESIÓN PERSISTENTE CORE_OS ---
 
-const SYSTEM_DATA = {
-    processor: "AMD A9-9420 APU",
-    ram: "16GB DDR4",
-    graphics: "Radeon R5 Graphics",
-    os: "CORE_OS v10.5 (Optimized for Redmi 13C)",
-    status: "Online"
-};
-
-function showSection(sectionId) {
-    document.querySelectorAll('.app-section').forEach(s => s.classList.remove('active'));
-    document.getElementById(sectionId + '-sec').classList.add('active');
+// Esto se ejecuta apenas abres la página
+window.addEventListener('load', function() {
+    const sesionGuardada = localStorage.getItem("sesion_activa");
+    const loginContainer = document.getElementById("auth-container");
     
-    // Auto-scroll al final si entras al chat
-    if(sectionId === 'chat') {
-        const win = document.getElementById('chat-window');
-        win.scrollTop = win.scrollHeight;
+    if (sesionGuardada === "true" && loginContainer) {
+        // Si ya inició sesión antes, escondemos el cuadro de login de inmediato
+        loginContainer.style.display = "none";
+        console.log("[SISTEMA]: Usuario autenticado. Sesión recuperada.");
+    }
+});
+
+// Esta es tu función de entrar (asegúrate de que el nombre coincida con el de tu HTML)
+function login() {
+    const user = document.getElementById("userEmail").value;
+    const pass = document.getElementById("userPass").value;
+
+    // Aquí pones tus datos de acceso
+    if (user === "mariotigrero07@gmail.com" && pass === "1707D") {
+        
+        // GUARDAMOS EL "TICKET" EN EL CELULAR
+        localStorage.setItem("sesion_activa", "true");
+        
+        // Escondemos el login con una transición suave
+        document.getElementById("auth-container").style.opacity = "0";
+        setTimeout(() => {
+            document.getElementById("auth-container").style.display = "none";
+        }, 300);
+
+        alert("Bienvenido de nuevo, Mario.");
+    } else {
+        alert("Error: Revisa tu correo o clave.");
     }
 }
 
+// Para cuando quieras cerrar la sesión de verdad
+function logout() {
+    localStorage.removeItem("sesion_activa");
+    location.reload(); // Esto hace que vuelva a pedir el login
+}
+
+function logout() {
+    location.reload(); // Reinicia la app al login
+}
+
+// Configuración de la IA (Resumen de tu hardware AMD A9)
 function sendMessage() {
     const input = document.getElementById('userInput');
-    const window = document.getElementById('chat-window');
-    const msg = input.value.trim();
+    const chatWin = document.getElementById('chat-window');
+    if (!input.value) return;
+
+    chatWin.innerHTML += `<div class="msg user">${input.value}</div>`;
     
-    if(!msg) return;
-
-    // Mostrar mensaje del usuario
-    window.innerHTML += `<div class="msg user">${msg}</div>`;
-    input.value = "";
-    window.scrollTop = window.scrollHeight;
-
-    // Simular "Pensamiento" de la IA
     setTimeout(() => {
-        const response = procesarRespuesta(msg.toLowerCase());
-        window.innerHTML += `
-            <div class="msg bot">
-                <b style="color:var(--accent-blue)">[GEMINI_CORE]:</b><br>
-                ${response}
-            </div>`;
-        window.scrollTop = window.scrollHeight;
-    }, 600);
-}
-
-function procesarRespuesta(q) {
-    // Lógica de Inteligencia Adaptativa
-    if (q.includes("hola") || q.includes("hey")) return "Saludos, Mario. Núcleo Alpha listo. ¿Qué proceso deseas ejecutar hoy?";
-    
-    if (q.includes("quien eres") || q.includes("que eres")) return "Soy el núcleo de inteligencia de este sistema, optimizado para trabajar con tu hardware AMD.";
-
-    if (q.includes("procesador") || q.includes("pc") || q.includes("hardware") || q.includes("ram")) {
-        return `ESTADO DEL SISTEMA:<br>• CPU: ${SYSTEM_DATA.processor}<br>• RAM: ${SYSTEM_DATA.ram}<br>• GPU: ${SYSTEM_DATA.graphics}<br>• Rendimiento: ESTABLE.`;
-    }
-
-    if (q.includes("juego") || q.includes("gaming") || q.includes("fortnite")) {
-        return "He analizado tus drivers (v27.10). Te recomiendo cerrar procesos en segundo plano para ganar FPS en Resident Evil o Fortnite.";
-    }
-
-    if (q.includes("creador") || q.includes("dueño")) return "Mi creador es Mario Tigrero. Yo soy su interfaz avanzada.";
-
-    if (q.includes("hora") || q.includes("fecha")) return "La fecha actual es: " + new Date().toLocaleString();
-
-    if (q.length < 3) return "Comando demasiado corto. Por favor, especifica la instrucción.";
-
-    // Respuesta por defecto si no entiende (Estilo ChatGPT)
-    return "He analizado tu consulta: '" + q + "'. Actualmente mis funciones están limitadas al control del hardware AMD A9 y visualización de archivos. ¿Deseas que optimice el sistema?";
+        chatWin.innerHTML += `<div class="msg bot"><b>[CORE_OS]:</b> Procesando en AMD A9... Sistema estable.</div>`;
+        chatWin.scrollTop = chatWin.scrollHeight;
+    }, 500);
+    input.value = "";
 }

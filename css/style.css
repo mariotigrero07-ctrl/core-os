@@ -1,154 +1,59 @@
-/* --- CONFIGURACIÓN MAESTRA NEGRO Y AZUL --- */
 :root {
-    --bg-deep: #010409;        /* Negro OLED */
-    --accent-blue: #00d1ff;    /* Azul Neón Eléctrico */
-    --dark-blue: #0a192f;      /* Azul medianoche para fondos */
-    --glass: rgba(10, 25, 47, 0.7);
-    --border: rgba(0, 209, 255, 0.3);
+    --bg-atlas: #080808;
+    --card-atlas: #121212;
+    --accent: #007cff;
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #ffffff;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; transition: 0.3s; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
-body {
-    background-color: var(--bg-deep);
-    background-image: 
-        radial-gradient(circle at 50% 50%, #0a192f 0%, #010409 100%),
-        url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #e6edf3;
-    min-height: 100vh;
-}
+body { background: var(--bg-atlas); color: var(--text); overflow-x: hidden; }
 
-/* --- ACCESO (LOGIN/REGISTRO) --- */
+/* CENTRADO TOTAL DEL INICIO DE SESIÓN */
 #auth-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    display: flex; align-items: center; justify-content: center;
+    height: 100vh; width: 100vw; position: fixed; z-index: 2000;
+    background: var(--bg-atlas);
 }
 
 .auth-box {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    padding: 40px 30px;
-    border-radius: 25px;
-    border: 2px solid var(--border);
-    width: 100%;
-    max-width: 380px;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(0, 209, 255, 0.15);
+    background: var(--card-atlas); border: 1px solid var(--border);
+    padding: 40px; border-radius: 16px; width: 90%; max-width: 360px;
+    text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.glow-title {
-    color: var(--accent-blue);
-    font-size: 2rem;
-    letter-spacing: 4px;
-    margin-bottom: 30px;
-    text-shadow: 0 0 15px var(--accent-blue);
+.auth-box input {
+    width: 100%; background: #1a1a1a; border: 1px solid var(--border);
+    padding: 12px; margin-bottom: 15px; border-radius: 8px; color: white;
 }
 
-/* --- INPUTS (Aquí es donde quitamos lo básico) --- */
-input {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5) !important; /* Fondo oscuro */
-    border: 1px solid var(--border) !important;
-    padding: 15px;
-    border-radius: 12px;
-    color: var(--accent-blue) !important; /* Letras azul neón */
-    margin-bottom: 15px;
-    outline: none;
-    font-weight: 600;
-}
-
-input::placeholder {
-    color: rgba(0, 209, 255, 0.5);
-}
-
-input:focus {
-    border-color: var(--accent-blue) !important;
-    box-shadow: 0 0 10px var(--accent-blue);
-    background: rgba(0, 209, 255, 0.05) !important;
-}
-
-.btn-main {
-    width: 100%;
-    background: linear-gradient(90deg, #00d1ff, #0077ff);
-    color: #000;
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 5px 15px rgba(0, 209, 255, 0.4);
-}
-
-/* --- MENÚ PARA CELULAR (REFORMADO) --- */
+/* NAVBAR CON ICONO DE PERFIL */
 .navbar {
-    position: fixed; top: 0; width: 100%;
-    background: rgba(1, 4, 9, 0.95);
-    border-bottom: 2px solid var(--border);
-    padding: 15px;
-    z-index: 1000;
-    text-align: center;
+    position: fixed; top: 0; width: 100%; background: rgba(8,8,8,0.95);
+    border-bottom: 1px solid var(--border); padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center; z-index: 1000;
 }
 
-.nav-links {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 10px;
-}
+.user-profile { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.avatar { width: 35px; height: 35px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
-.nav-links button {
-    background: var(--dark-blue);
-    border: 1px solid var(--border);
-    color: var(--accent-blue);
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 700;
-}
+.nav-links { display: flex; gap: 10px; }
+.nav-links button { background: #1a1a1a; border: 1px solid var(--border); color: white; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
 
-/* --- ÁREA DE CHAT (MEJORADA) --- */
-.main-content { margin-top: 140px; padding: 15px; }
+/* SECCIONES (OCULTAS POR DEFECTO) */
+.main-content { margin-top: 100px; padding: 20px; }
+.app-section { display: none; animation: fadeIn 0.3s ease; }
+.app-section.active { display: block; }
 
-.glass-panel {
-    background: rgba(0, 0, 0, 0.6);
-    height: 55vh;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    padding: 15px;
-    overflow-y: auto;
-    margin-bottom: 15px;
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* Burbujas de chat */
-.msg { padding: 12px; border-radius: 15px; margin-bottom: 10px; font-size: 0.9rem; }
-.bot { 
-    background: var(--dark-blue); 
-    border-left: 3px solid var(--accent-blue);
-    color: #fff;
-}
-.user { 
-    background: var(--accent-blue); 
-    color: #000; 
-    margin-left: auto; 
-    font-weight: 700;
-}
+/* FORMULARIO DE COMENTARIOS */
+.comment-box { background: var(--card-atlas); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+.comment-box textarea { width: 100%; background: #1a1a1a; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 8px; height: 100px; margin-bottom: 10px; }
 
-/* Barra de escribir mensaje */
-.input-area input {
-    margin-bottom: 0;
-    border-radius: 12px 0 0 12px;
-}
+.btn-send { background: var(--accent); border: none; color: white; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
-.input-area button {
-    background: var(--accent-blue);
-    border: none;
-    padding: 0 20px;
-    border-radius: 0 12px 12px 0;
-    font-weight: 800;
-    cursor: pointer;
-}
+/* GRID DE FOTOS */
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+.photo-card img { width: 100%; border-radius: 8px; height: 150px; object-fit: cover; }
